@@ -63,7 +63,7 @@ public class RobotContainer {
   Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
       () -> MathUtil.applyDeadband(driverXbox.getLeftX() * -1, OperatorConstants.RIGHT_X_DEADBAND),
       () -> MathUtil.applyDeadband(driverXbox.getLeftY() * -1, OperatorConstants.LEFT_X_DEADBAND),
-      () -> driverXbox.getRightX() * 1);
+      () -> driverXbox.getRightX() * -1);
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
