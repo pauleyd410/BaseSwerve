@@ -66,15 +66,9 @@ public class RobotContainer {
   // left stick controls translation
   // right stick controls the angular velocity of the robot
   Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
-<<<<<<< HEAD
       () -> driverXbox.getRawAxis(translationAxis),
       () -> driverXbox.getRawAxis(strafeAxis),
       () -> driverXbox.getRawAxis(rotationAxis) * 6);
-=======
-    () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
-    () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-    () -> driverXbox.getRightX());
->>>>>>> d0b4390adb1f68c36a1db354079feb8519ef9fb4
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
