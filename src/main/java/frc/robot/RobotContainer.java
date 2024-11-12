@@ -30,9 +30,16 @@ public class RobotContainer {
   private final CommandXboxController driverXbox =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
-      private final int translationAxis = XboxController.Axis.kLeftY.value;
-      private final int strafeAxis = XboxController.Axis.kLeftX.value;
-      private final int rotationAxis = XboxController.Axis.kRightX.value;
+
+  // Applies deadbands and inverts controls because joysticks
+  // are back-right positive while robot
+  // controls are front-left positive
+  // left stick controls translation
+  // right stick controls the angular velocity of the robot
+  Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
+      () -> MathUtil.applyDeadband(driverXbox.getLeftY() * -1, OperatorConstants.LEFT_Y_DEADBAND),
+      () -> MathUtil.applyDeadband(driverXbox.getLeftX() * -1, OperatorConstants.LEFT_X_DEADBAND),
+      () -> driverXbox.getRightX() * -1);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -59,16 +66,6 @@ public class RobotContainer {
     // cancelling on release.
     driverXbox.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
-
-  // Applies deadbands and inverts controls because joysticks
-  // are back-right positive while robot
-  // controls are front-left positive
-  // left stick controls translation
-  // right stick controls the angular velocity of the robot
-  Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
-      () -> driverXbox.getRawAxis(translationAxis),
-      () -> driverXbox.getRawAxis(strafeAxis),
-      () -> driverXbox.getRawAxis(rotationAxis) * 6);
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
