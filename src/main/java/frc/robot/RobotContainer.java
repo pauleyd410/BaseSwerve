@@ -64,8 +64,14 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    driverXbox.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    driverXbox.rightBumper().whileTrue(halfSpeed);
   }
+
+   Command halfSpeed = drivebase.driveCommand(
+      () -> MathUtil.applyDeadband(driverXbox.getLeftY() * -.75, OperatorConstants.LEFT_Y_DEADBAND),
+      () -> MathUtil.applyDeadband(driverXbox.getLeftX() * -.75, OperatorConstants.LEFT_X_DEADBAND),
+      () -> MathUtil.applyDeadband(driverXbox.getRightX() * .75, OperatorConstants.RIGHT_X_DEADBAND));
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -74,6 +80,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return drivebase.getAutonomousCommand("New Auto");
   }
 }
