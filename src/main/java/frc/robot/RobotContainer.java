@@ -69,5 +69,10 @@ public class RobotContainer {
       () -> MathUtil.applyDeadband(driverXbox.getLeftY() * -.75, OperatorConstants.LEFT_Y_DEADBAND),
       () -> MathUtil.applyDeadband(driverXbox.getLeftX() * -.75, OperatorConstants.LEFT_X_DEADBAND),
       () -> MathUtil.applyDeadband(driverXbox.getRightX() * .75, OperatorConstants.RIGHT_X_DEADBAND));
-  
+    
+  public Command getAutonomousCommand() 
+  {
+    //An example command will be run in autonomous
+    return drivebase.getAutonomousCommand("Auto with Rotation");
   }
+ }
